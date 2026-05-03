@@ -650,6 +650,27 @@
         color: #071321;
       }
 
+      .signup .bot-field {
+        display: none;
+      }
+
+      .signup .consent {
+        align-items: start;
+        display: flex;
+        gap: 10px;
+        color: #c4d8ea;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.55;
+      }
+
+      .signup .consent input {
+        width: 16px;
+        min-width: 16px;
+        margin-top: 2px;
+        accent-color: #ff7a45;
+      }
+
       .footer-links {
         display: grid;
         align-content: start;
@@ -1184,7 +1205,21 @@
                   참여하세요
                 </h2>
                 <p>선착순 500명에게 3개월 무료 프리미엄 이용권과 특별 굿즈를 드립니다.</p>
-                <form class="signup" id="signup-form">
+                <form
+                  class="signup"
+                  id="signup-form"
+                  name="beta-signup"
+                  method="POST"
+                  data-netlify="true"
+                  netlify-honeypot="bot-field"
+                >
+                  <input type="hidden" name="form-name" value="beta-signup" />
+                  <p class="bot-field" aria-hidden="true">
+                    <label>
+                      입력하지 마세요
+                      <input name="bot-field" tabindex="-1" autocomplete="off" />
+                    </label>
+                  </p>
                   <label>
                     이메일 주소
                     <input
@@ -1223,6 +1258,13 @@
                       placeholder="아이에게 어떤 경제 교육을 기대하시나요?"
                     ></textarea>
                   </label>
+                  <label class="consent">
+                    <input name="privacyConsent" type="checkbox" value="동의" required />
+                    <span>
+                      베타테스트 안내를 위해 이메일과 연락처를 수집하며, 수집한 정보는
+                      안내 및 참여자 관리 목적으로만 사용하고 목적 달성 후 파기됩니다.
+                    </span>
+                  </label>
                   <button class="button button--white" type="submit">베타 신청하기 →</button>
                 </form>
               </div>
@@ -1240,24 +1282,5 @@
         </div>
       </section>
     </main>
-    <script>
-      const betaForm = document.querySelector("#signup-form");
-
-      betaForm?.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        const formData = new FormData(betaForm);
-        const email = formData.get("email");
-
-        if (!email) {
-          return;
-        }
-
-        window.alert(
-          "베타 신청 정보가 입력되었습니다. 실제 수집은 Stibee 또는 백엔드 연동 후 저장됩니다."
-        );
-        betaForm.reset();
-      });
-    </script>
   </body>
 </html>
