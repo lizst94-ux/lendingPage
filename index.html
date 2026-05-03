@@ -171,17 +171,18 @@
         overflow: hidden;
         min-height: 700px;
         padding: 0 0 64px;
+        /* 일러스트 PNG가 흰 캔버스인 경우 크림색 베이스와 맞물리며 ‘상자’ 테두리처럼 보이므로 화이트 베이스 + 약한 그라데이션만 사용 */
         background:
-          radial-gradient(circle at 84% 35%, rgba(201, 255, 223, 0.8), transparent 34%),
-          radial-gradient(circle at 12% 88%, rgba(217, 244, 255, 0.65), transparent 26%),
-          #fffdf8;
+          radial-gradient(ellipse 72% 58% at 82% 40%, rgba(201, 255, 223, 0.2), transparent 58%),
+          radial-gradient(ellipse 58% 48% at 8% 78%, rgba(217, 244, 255, 0.16), transparent 52%),
+          #ffffff;
       }
 
       .hero__grid {
         display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(440px, 1.1fr);
+        grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.32fr);
         align-items: center;
-        gap: 34px;
+        gap: 28px;
         padding-top: 76px;
       }
 
@@ -206,7 +207,7 @@
         content: "";
       }
 
-      .hero h1 {
+      .hero .hero__grid > div:first-of-type h1 {
         margin: 22px 0 18px;
         color: #061d38;
         font-size: clamp(40px, 5.1vw, 58px);
@@ -240,7 +241,7 @@
         display: flex;
         min-height: 0;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end;
         overflow: visible;
         border: none;
         box-shadow: none;
@@ -250,8 +251,9 @@
       .hero__art img {
         position: relative;
         display: block;
-        width: min(100%, 460px);
-        max-height: 600px;
+        width: min(100%, 640px);
+        max-height: min(88vh, 780px);
+        height: auto;
         object-fit: contain;
         border: none;
         outline: none;
@@ -858,10 +860,12 @@
 
         .hero__art {
           min-height: 0;
+          justify-content: center;
         }
 
         .hero__art img {
-          width: min(82%, 310px);
+          width: min(94%, 440px);
+          max-height: min(72vh, 560px);
         }
 
         .feature-grid,
@@ -901,7 +905,7 @@
     <a class="skip-link" href="#beta">사전 체험단 신청 섹션으로 이동</a>
 
     <main class="page" aria-label="경제 교육 앱 코코노미 사전 체험단 모집">
-      <section id="hero" class="section" aria-labelledby="hero-title">
+      <section id="hero" class="section hero" aria-labelledby="hero-title">
         <h1 id="hero-title" class="sr-only">
           우리 아이의 첫 경제 수업, 코코노미와 함께 재미있게 시작하세요
         </h1>
