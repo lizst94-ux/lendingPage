@@ -238,18 +238,25 @@
       .hero__art {
         position: relative;
         display: flex;
-        min-height: 600px;
+        min-height: 0;
         align-items: center;
         justify-content: center;
         overflow: visible;
+        border: none;
+        box-shadow: none;
+        background: transparent;
       }
 
       .hero__art img {
         position: relative;
+        display: block;
         width: min(100%, 460px);
         max-height: 600px;
         object-fit: contain;
-        filter: drop-shadow(0 28px 32px rgba(50, 80, 65, 0.22));
+        border: none;
+        outline: none;
+        box-shadow: none;
+        background: transparent;
       }
 
       .section-title {
@@ -850,7 +857,7 @@
         }
 
         .hero__art {
-          min-height: 380px;
+          min-height: 0;
         }
 
         .hero__art img {
