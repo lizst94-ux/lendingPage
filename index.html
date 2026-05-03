@@ -8,6 +8,7 @@
       name="description"
       content="경제 교육 앱 코코노미 사전 체험단을 모집합니다. 코코노미와 함께 아이의 첫 경제 수업을 시작해 보세요."
     />
+    <link rel="icon" type="image/png" href="favicon.png" />
     <style>
       :root {
         color-scheme: light;
@@ -171,11 +172,8 @@
         overflow: hidden;
         min-height: 700px;
         padding: 0 0 64px;
-        /* 일러스트 PNG가 흰 캔버스인 경우 크림색 베이스와 맞물리며 ‘상자’ 테두리처럼 보이므로 화이트 베이스 + 약한 그라데이션만 사용 */
-        background:
-          radial-gradient(ellipse 72% 58% at 82% 40%, rgba(201, 255, 223, 0.2), transparent 58%),
-          radial-gradient(ellipse 58% 48% at 8% 78%, rgba(217, 244, 255, 0.16), transparent 52%),
-          #ffffff;
+        /* PNG 가장자리의 오프화이트 캔버스와 배경색을 맞춰 사각 경계가 보이지 않게 한다. */
+        background: #fcfaf8;
       }
 
       .hero__grid {
@@ -309,6 +307,12 @@
         height: auto;
       }
 
+      /* 3번 카드 원본 이미지 여백이 커서 작아 보이는 문제 보정 */
+      .feature-card__media--village img {
+        transform: scale(1.12);
+        transform-origin: center;
+      }
+
       .feature-card__body {
         padding: 24px 26px 26px;
       }
@@ -357,7 +361,6 @@
         margin-top: 42px;
         place-items: center;
         border-radius: 15px;
-        background: #fff0bf;
         box-shadow: 0 16px 32px rgba(193, 145, 55, 0.16);
       }
 
@@ -435,6 +438,10 @@
         align-items: center;
       }
 
+      .village-grid > * {
+        min-width: 0;
+      }
+
       .building-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -483,6 +490,12 @@
         width: 58px;
         height: 58px;
         border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .avatar-card > div {
+        flex: 1;
+        min-width: 0;
       }
 
       .dashboard-section {
@@ -619,6 +632,9 @@
       }
 
       .signup {
+        --signup-label: #d2e9fb;
+        --signup-body: #ffffff;
+        --signup-placeholder: rgba(255, 255, 255, 0.42);
         display: grid;
         gap: 18px;
         margin-top: 26px;
@@ -627,21 +643,64 @@
       .signup label {
         display: grid;
         gap: 7px;
-        color: #9ab6cf;
+        color: var(--signup-label);
         font-size: 12px;
         font-weight: 700;
       }
 
-      .signup input,
+      .signup input:not([type="radio"]):not([type="checkbox"]),
       .signup select,
       .signup textarea {
         width: 100%;
         border: 0;
         border-bottom: 1px solid rgba(126, 162, 192, 0.35);
         background: transparent;
-        color: #ffffff;
+        color: var(--signup-body);
         font: inherit;
         padding: 8px 0 12px;
+      }
+
+      .signup .grade-fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
+      .signup .grade-legend {
+        padding: 0;
+        color: var(--signup-label);
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .signup .grade-options {
+        display: grid;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .signup .grade-option {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin: 0;
+        color: var(--signup-body);
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.45;
+        cursor: pointer;
+      }
+
+      .signup .grade-option input[type="radio"] {
+        width: 18px;
+        min-width: 18px;
+        height: 18px;
+        margin: 2px 0 0;
+        padding: 0;
+        border: 0;
+        border-bottom: 0;
+        accent-color: #ff7a45;
+        cursor: pointer;
       }
 
       .signup textarea {
@@ -651,7 +710,20 @@
 
       .signup input::placeholder,
       .signup textarea::placeholder {
-        color: #5d8db7;
+        color: var(--signup-placeholder);
+        opacity: 1;
+      }
+
+      .signup input:-webkit-autofill,
+      .signup input:-webkit-autofill:hover,
+      .signup input:-webkit-autofill:focus,
+      .signup textarea:-webkit-autofill,
+      .signup textarea:-webkit-autofill:hover,
+      .signup textarea:-webkit-autofill:focus {
+        -webkit-text-fill-color: var(--signup-body);
+        caret-color: var(--signup-body);
+        transition: background-color 99999s ease-out;
+        box-shadow: 0 0 0 1000px #051321 inset;
       }
 
       .signup select option {
@@ -667,7 +739,7 @@
         align-items: start;
         display: flex;
         gap: 10px;
-        color: #c4d8ea;
+        color: var(--signup-label);
         font-size: 12px;
         font-weight: 500;
         line-height: 1.55;
@@ -817,6 +889,18 @@
         padding: 0;
       }
 
+      @media (max-width: 960px) {
+        .village-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+          align-items: stretch;
+        }
+
+        .building-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
       @media (max-width: 768px) {
         .container {
           width: min(100% - 40px, var(--content-width));
@@ -869,10 +953,14 @@
         }
 
         .feature-grid,
-        .building-grid,
         .stat-grid,
         .dash-grid {
           grid-template-columns: 1fr;
+        }
+
+        .building-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 12px;
         }
 
         .timeline {
@@ -929,7 +1017,8 @@
           <div>
             <p class="eyebrow">초등~중등 경제 교육의 새로운 시작</p>
             <h1>
-              우리 아이의 첫 경제 수업<br />
+              우리 아이의 <br />
+              첫 경제 수업<br />
               <span class="accent">코코노미</span>와 함께<br />
               재미있게 시작하세요
             </h1>
@@ -982,7 +1071,7 @@
               </div>
             </article>
             <article class="feature-card">
-              <div class="feature-card__media" style="background:#bff9f8">
+              <div class="feature-card__media feature-card__media--village" style="background:#bff9f8">
                 <img src="./assets/feature-village.png" alt="경제마을의 상점과 집 일러스트" />
               </div>
               <div class="feature-card__body">
@@ -1082,7 +1171,6 @@
                 학습 포인트로 건물을 짓고, 캐릭터를 꾸미고 친구들과 마을을 공유하며
                 경제를 체험합니다. 교육이 게임이 되는 순간!
               </p>
-              <a class="button button--white" href="#parents">마을 미리보기 →</a>
             </div>
             <div>
               <div class="building-grid">
@@ -1254,15 +1342,27 @@
                       required
                     />
                   </label>
-                  <label>
-                    아이의 학년 (선택)
-                    <select name="grade">
-                      <option value="">선택해주세요</option>
-                      <option value="초등학교 저학년">초등학교 저학년</option>
-                      <option value="초등학교 고학년">초등학교 고학년</option>
-                      <option value="중학생">중학생</option>
-                    </select>
-                  </label>
+                  <fieldset class="grade-fieldset">
+                    <legend class="grade-legend">아이의 학년 (선택)</legend>
+                    <div class="grade-options">
+                      <label class="grade-option">
+                        <input type="radio" name="grade" value="초등학교 저학년(1학년~3학년)" />
+                        <span>초등학교 저학년(1학년~3학년)</span>
+                      </label>
+                      <label class="grade-option">
+                        <input type="radio" name="grade" value="초등학교 고학년(4학년~6학년)" />
+                        <span>초등학교 고학년(4학년~6학년)</span>
+                      </label>
+                      <label class="grade-option">
+                        <input type="radio" name="grade" value="중학교(1학년~3학년)" />
+                        <span>중학교(1학년~3학년)</span>
+                      </label>
+                      <label class="grade-option">
+                        <input type="radio" name="grade" value="" checked />
+                        <span>선택 안 함</span>
+                      </label>
+                    </div>
+                  </fieldset>
                   <label>
                     하고 싶은 말 (선택, 500자 이내)
                     <textarea
